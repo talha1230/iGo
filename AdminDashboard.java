@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 
 public class AdminDashboard extends JFrame 
@@ -7,6 +9,8 @@ public class AdminDashboard extends JFrame
     // Define a consistent font style
     private static final Font STANDARD_FONT = new Font("Aharoni", Font.PLAIN, 15);
     private static final Font BOLD_FONT = new Font("Aharoni", Font.BOLD, 15);
+    private DefaultTableModel scheduleTableModel;
+    private JTable scheduleTable;
 
     public AdminDashboard() {
         setTitle("Admin Dashboard");
@@ -173,157 +177,224 @@ public class AdminDashboard extends JFrame
         return panel;
     }
 
-    // Panel for "Create Schedule"
-    private JPanel createSchedulePanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
+   // Panel for "Create Schedule"
+   private JPanel createSchedulePanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(null);
 
-        JLabel titleLabel = new JLabel("Create New Schedule");
-        titleLabel.setFont(BOLD_FONT);
-        titleLabel.setBounds(250, 20, 200, 30);
-        panel.add(titleLabel);
+    JLabel titleLabel = new JLabel("Create New Schedule");
+    titleLabel.setFont(BOLD_FONT);
+    titleLabel.setBounds(250, 20, 200, 30);
+    panel.add(titleLabel);
 
-        JLabel transportTypeLabel = new JLabel("Transport Type:");
-        transportTypeLabel.setFont(STANDARD_FONT);
-        transportTypeLabel.setBounds(100, 80, 150, 30);
-        panel.add(transportTypeLabel);
+    JLabel transportTypeLabel = new JLabel("Transport Type:");
+    transportTypeLabel.setFont(STANDARD_FONT);
+    transportTypeLabel.setBounds(100, 80, 150, 30);
+    panel.add(transportTypeLabel);
 
-        JComboBox<String> transportTypeCombo = new JComboBox<>(new String[]{"Bus", "Train"});
-        transportTypeCombo.setFont(STANDARD_FONT);
-        transportTypeCombo.setBounds(250, 80, 250, 30);
-        panel.add(transportTypeCombo);
+    JComboBox<String> transportTypeCombo = new JComboBox<>(new String[]{"Bus", "Train"});
+    transportTypeCombo.setFont(STANDARD_FONT);
+    transportTypeCombo.setBounds(250, 80, 250, 30);
+    panel.add(transportTypeCombo);
 
-        JLabel departureLabel = new JLabel("Departure Time:");
-        departureLabel.setFont(STANDARD_FONT);
-        departureLabel.setBounds(100, 130, 150, 30);
-        panel.add(departureLabel);
+    JLabel departureLabel = new JLabel("Departure Time:");
+    departureLabel.setFont(STANDARD_FONT);
+    departureLabel.setBounds(100, 130, 150, 30);
+    panel.add(departureLabel);
 
-        JTextField departureField = new JTextField();
-        departureField.setFont(STANDARD_FONT);
-        departureField.setBounds(250, 130, 250, 30);
-        panel.add(departureField);
+    JTextField departureField = new JTextField();
+    departureField.setFont(STANDARD_FONT);
+    departureField.setBounds(250, 130, 250, 30);
+    panel.add(departureField);
 
-        JLabel arrivalLabel = new JLabel("Arrival Time:");
-        arrivalLabel.setFont(STANDARD_FONT);
-        arrivalLabel.setBounds(100, 180, 150, 30);
-        panel.add(arrivalLabel);
+    JLabel arrivalLabel = new JLabel("Arrival Time:");
+    arrivalLabel.setFont(STANDARD_FONT);
+    arrivalLabel.setBounds(100, 180, 150, 30);
+    panel.add(arrivalLabel);
 
-        JTextField arrivalField = new JTextField();
-        arrivalField.setFont(STANDARD_FONT);
-        arrivalField.setBounds(250, 180, 250, 30);
-        panel.add(arrivalField);
+    JTextField arrivalField = new JTextField();
+    arrivalField.setFont(STANDARD_FONT);
+    arrivalField.setBounds(250, 180, 250, 30);
+    panel.add(arrivalField);
 
-        JLabel routeLabel = new JLabel("Route:");
-        routeLabel.setFont(STANDARD_FONT);
-        routeLabel.setBounds(100, 230, 150, 30);
-        panel.add(routeLabel);
+    JLabel routeLabel = new JLabel("Route:");
+    routeLabel.setFont(STANDARD_FONT);
+    routeLabel.setBounds(100, 230, 150, 30);
+    panel.add(routeLabel);
 
-        JTextField routeField = new JTextField();
-        routeField.setFont(STANDARD_FONT);
-        routeField.setBounds(250, 230, 250, 30);
-        panel.add(routeField);
+    JTextField routeField = new JTextField();
+    routeField.setFont(STANDARD_FONT);
+    routeField.setBounds(250, 230, 250, 30);
+    panel.add(routeField);
 
-        JButton createButton = new JButton("Create");
-        createButton.setFont(BOLD_FONT);
-        createButton.setBounds(360, 260, 140, 45);
-        panel.add(createButton);
+    JLabel scheduleIDLabel = new JLabel("Schedule ID:");
+    scheduleIDLabel.setFont(STANDARD_FONT);
+    scheduleIDLabel.setBounds(100, 280, 150, 30);
+    panel.add(scheduleIDLabel);
 
-        //Create a table to display existing schedules 
-        String[] columns = {"Transport ID","Schedule ID", "Transport Type", "Departure Time","Arrival Time", "Route" };
-        Object[][] data = {
-                {"TN001", "TB001", "Train", "07:00", "08:00","Jalan Ampang"},
-                {"TN002", "TB002", "Train", "08:30", "09:30", "Jalan Bukit Bintang"},
-                {"BS003", "TB003", "Bus", "11:20", "12:50","Jalan Raja"},
-                {"BS004", "TB004", "Bus", "14:15", "16:00", "Jalan Gombak"},
-        };
-        JTable table = new JTable(data, columns);
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(30, 400, 610, 200);
-        panel.add(scrollPane);
+    JComboBox<String> scheduleIDCombo = new JComboBox<>(new String[]{"TB001", "TB002"});
+    scheduleIDCombo.setFont(STANDARD_FONT);
+    scheduleIDCombo.setBounds(250, 280, 250, 30);
+    panel.add(scheduleIDCombo);
 
-        return panel;
-    }
+    JLabel transportIDLabel = new JLabel("Transport ID:");
+    transportIDLabel.setFont(STANDARD_FONT);
+    transportIDLabel.setBounds(100, 330, 150, 30);
+    panel.add(transportIDLabel);
 
-    // Panel for "Update Schedule"
-    private JPanel updateSchedulePanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
+    JComboBox<String> transportIDCombo = new JComboBox<>(new String[]{"BS001", "TN002"});
+    transportIDCombo.setFont(STANDARD_FONT);
+    transportIDCombo.setBounds(250, 330, 250, 30);
+    panel.add(transportIDCombo);
 
-        JLabel titleLabel = new JLabel("Update Existing Schedule");
-        titleLabel.setFont(BOLD_FONT);
-        titleLabel.setBounds(250, 20, 200, 30);
-        panel.add(titleLabel);
+    JButton createButton = new JButton("Create");
+    createButton.setFont(BOLD_FONT);
+    createButton.setBounds(360, 380, 140, 45);
+    panel.add(createButton);
 
-        JLabel scheduleIDLabel = new JLabel("Schedule ID:");
-        scheduleIDLabel.setFont(STANDARD_FONT);
-        scheduleIDLabel.setBounds(100, 80, 200, 30);
-        panel.add(scheduleIDLabel);
+    // Create a table to display existing schedules
+    String[] columns = {"Transport ID", "Schedule ID", "Transport Type", "Departure Time", "Arrival Time", "Route"};
+    Object[][] data = {
+        {"TN001", "TB001", "Train", "07:00", "08:00", "Jalan Ampang"},
+        {"TN002", "TB002", "Train", "08:30", "09:30", "Jalan Bukit Bintang"},
+        {"BS003", "TB003", "Bus", "11:20", "12:50", "Jalan Raja"},
+        {"BS004", "TB004", "Bus", "14:15", "16:00", "Jalan Gombak"},
+    };
+    scheduleTableModel = new DefaultTableModel(data, columns);
+    scheduleTable = new JTable(scheduleTableModel);
+    JScrollPane scrollPane = new JScrollPane(scheduleTable);
+    scrollPane.setBounds(30, 450, 610, 200);
+    panel.add(scrollPane);
 
-        JComboBox<String> scheduleIDCombo = new JComboBox<>(new String[]{"TB001", "TB002"});
-        scheduleIDCombo.setFont(STANDARD_FONT);
-        scheduleIDCombo.setBounds(280, 80, 250, 30);
-        panel.add(scheduleIDCombo);
+    // Add action listener to the create button
+    createButton.addActionListener(e -> {
+        String transportID = (String) transportIDCombo.getSelectedItem();
+        String scheduleID = (String) scheduleIDCombo.getSelectedItem();
+        String transportType = (String) transportTypeCombo.getSelectedItem();
+        String departureTime = departureField.getText();
+        String arrivalTime = arrivalField.getText();
+        String route = routeField.getText();
+        // Add the new schedule to the table model
+        scheduleTableModel.addRow(new Object[]{transportID, scheduleID, transportType, departureTime, arrivalTime, route});
+        JOptionPane.showMessageDialog(panel, "Schedule created successfully!");
+    });
 
-        JLabel newDepartureLabel = new JLabel("New Departure Time:");
-        newDepartureLabel.setFont(STANDARD_FONT);
-        newDepartureLabel.setBounds(100, 130, 200, 30);
-        panel.add(newDepartureLabel);
+    return panel;
+}
 
-        JTextField newDepartureField = new JTextField();
-        newDepartureField.setFont(STANDARD_FONT);
-        newDepartureField.setBounds(280, 130, 250, 30);
-        panel.add(newDepartureField);
+   // Panel for "Update Schedule"
+private JPanel updateSchedulePanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(null);
 
-        JLabel newArrivalLabel = new JLabel("New Arrival Time:");
-        newArrivalLabel.setFont(STANDARD_FONT);
-        newArrivalLabel.setBounds(100, 180, 200, 30);
-        panel.add(newArrivalLabel);
+    JLabel titleLabel = new JLabel("Update Existing Schedule");
+    titleLabel.setFont(BOLD_FONT);
+    titleLabel.setBounds(250, 20, 200, 30);
+    panel.add(titleLabel);
 
-        JTextField newArrivalField = new JTextField();
-        newArrivalField.setFont(STANDARD_FONT);
-        newArrivalField.setBounds(280, 180, 250, 30);
-        panel.add(newArrivalField);
+    JLabel scheduleIDLabel = new JLabel("Schedule ID:");
+    scheduleIDLabel.setFont(STANDARD_FONT);
+    scheduleIDLabel.setBounds(100, 80, 200, 30);
+    panel.add(scheduleIDLabel);
 
-        JButton updateButton = new JButton("Update");
-        updateButton.setFont(BOLD_FONT);
-        updateButton.setBounds(390, 210, 140, 45);
-        panel.add(updateButton);
+    JComboBox<String> scheduleIDCombo = new JComboBox<>(new String[]{"TB001", "TB002"});
+    scheduleIDCombo.setFont(STANDARD_FONT);
+    scheduleIDCombo.setBounds(280, 80, 250, 30);
+    panel.add(scheduleIDCombo);
 
-        JLabel titleLabel2 = new JLabel("Delete Existing Schedule");
-        titleLabel2.setFont(BOLD_FONT);
-        titleLabel2.setBounds(250, 300, 200, 30);
-        panel.add(titleLabel2);
+    JLabel newDepartureLabel = new JLabel("New Departure Time:");
+    newDepartureLabel.setFont(STANDARD_FONT);
+    newDepartureLabel.setBounds(100, 130, 200, 30);
+    panel.add(newDepartureLabel);
 
-        JLabel scheduleIDLabel2 = new JLabel("Schedule ID:");
-        scheduleIDLabel2.setFont(STANDARD_FONT);
-        scheduleIDLabel2.setBounds(100, 350, 140, 30);
-        panel.add(scheduleIDLabel2);
+    JTextField newDepartureField = new JTextField();
+    newDepartureField.setFont(STANDARD_FONT);
+    newDepartureField.setBounds(280, 130, 250, 30);
+    panel.add(newDepartureField);
 
-        JComboBox<String> scheduleIDCombo2 = new JComboBox<>(new String[]{"TB001", "TB002"});
-        scheduleIDCombo2.setFont(STANDARD_FONT);
-        scheduleIDCombo2.setBounds(280, 350, 250, 30);
-        panel.add(scheduleIDCombo2);
+    JLabel newArrivalLabel = new JLabel("New Arrival Time:");
+    newArrivalLabel.setFont(STANDARD_FONT);
+    newArrivalLabel.setBounds(100, 180, 200, 30);
+    panel.add(newArrivalLabel);
 
-        JButton deleteButton = new JButton("Delete");
-        deleteButton.setFont(BOLD_FONT);
-        deleteButton.setBounds(390, 380, 140, 45);
-        panel.add(deleteButton);
+    JTextField newArrivalField = new JTextField();
+    newArrivalField.setFont(STANDARD_FONT);
+    newArrivalField.setBounds(280, 180, 250, 30);
+    panel.add(newArrivalField);
 
-        //Create a table to display existing schedules 
-        String[] columns = {"Schedule ID","Transport ID", "Departure Time","Arrival Time"};
-        Object[][] data = {
-            {"TN001", "TB001", "Train", "07:00", "08:00"},
-            {"TN002", "TB002", "Train", "08:30", "09:30"},
-            {"BS003", "TB003", "Bus", "11:20", "12:50"},
-            {"BS004", "TB004", "Bus", "14:15", "16:00"},
-        };
-        JTable table = new JTable(data, columns);
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(30, 450, 610, 200);
-        panel.add(scrollPane);
+    JButton updateButton = new JButton("Update");
+    updateButton.setFont(BOLD_FONT);
+    updateButton.setBounds(390, 210, 140, 45);
+    panel.add(updateButton);
 
-        return panel;
-    }
+    JLabel titleLabel2 = new JLabel("Delete Existing Schedule");
+    titleLabel2.setFont(BOLD_FONT);
+    titleLabel2.setBounds(250, 300, 200, 30);
+    panel.add(titleLabel2);
+
+    JLabel scheduleIDLabel2 = new JLabel("Schedule ID:");
+    scheduleIDLabel2.setFont(STANDARD_FONT);
+    scheduleIDLabel2.setBounds(100, 350, 140, 30);
+    panel.add(scheduleIDLabel2);
+
+    JComboBox<String> scheduleIDCombo2 = new JComboBox<>(new String[]{"TB001", "TB002"});
+    scheduleIDCombo2.setFont(STANDARD_FONT);
+    scheduleIDCombo2.setBounds(280, 350, 250, 30);
+    panel.add(scheduleIDCombo2);
+
+    JButton deleteButton = new JButton("Delete");
+    deleteButton.setFont(BOLD_FONT);
+    deleteButton.setBounds(390, 380, 140, 45);
+    panel.add(deleteButton);
+
+    // Create a table to display existing schedules
+    String[] columns = {"Schedule ID", "Transport ID", "Departure Time", "Arrival Time"};
+    Object[][] data = {
+        {"TN001", "TB001", "Train", "07:00", "08:00"},
+        {"TN002", "TB002", "Train", "08:30", "09:30"},
+        {"BS003", "TB003", "Bus", "11:20", "12:50"},
+        {"BS004", "TB004", "Bus", "14:15", "16:00"},
+    };
+    JTable table = new JTable(data, columns);
+    JScrollPane scrollPane = new JScrollPane(table);
+    scrollPane.setBounds(30, 450, 610, 200);
+    panel.add(scrollPane);
+
+    // Add action listener to the update button
+    updateButton.addActionListener(e -> {
+        String scheduleID = (String) scheduleIDCombo.getSelectedItem();
+        String newDepartureTime = newDepartureField.getText();
+        String newArrivalTime = newArrivalField.getText();
+        // Add logic to update the schedule
+        // For example, update the schedule in the table
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (model.getValueAt(i, 0).equals(scheduleID)) {
+                model.setValueAt(newDepartureTime, i, 2);
+                model.setValueAt(newArrivalTime, i, 3);
+                break;
+            }
+        }
+        JOptionPane.showMessageDialog(panel, "Schedule updated successfully!");
+    });
+
+    // Add action listener to the delete button
+    deleteButton.addActionListener(e -> {
+        String scheduleID = (String) scheduleIDCombo2.getSelectedItem();
+        // Add logic to delete the schedule
+        // For example, remove the schedule from the table
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (model.getValueAt(i, 0).equals(scheduleID)) {
+                model.removeRow(i);
+                break;
+            }
+        }
+        JOptionPane.showMessageDialog(panel, "Schedule deleted successfully!");
+    });
+
+    return panel;
+}
 
     // Panel for "Assign Transport"
     private JPanel assignTransportPanel() {
