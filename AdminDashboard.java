@@ -6,7 +6,6 @@ import java.awt.*;
 public class AdminDashboard extends JFrame 
 {
 
-    // Define a consistent font style
     private static final Font STANDARD_FONT = new Font("Aharoni", Font.PLAIN, 15);
     private static final Font BOLD_FONT = new Font("Aharoni", Font.BOLD, 15);
     private DefaultTableModel scheduleTableModel;
@@ -42,15 +41,12 @@ public class AdminDashboard extends JFrame
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setBounds(50, 100, 700, 780);
         
-
-        // Add tabs
         tabbedPane.addTab("Manage User", NewUser());
         tabbedPane.addTab("Create Schedule", createSchedulePanel());
         tabbedPane.addTab("Update Schedule", updateSchedulePanel());
-       // tabbedPane.addTab("Delete Schedule", deleteSchedulePanel());
         tabbedPane.addTab("Assign Transport", assignTransportPanel());
 
-        //Add two buttons "Logout" and "Quit"
+        //  buttons "Logout" and "Quit"
     JButton logoutButton = new JButton("Logout");
     logoutButton.setFont(BOLD_FONT);
     logoutButton.setBounds(350, 750, 140, 45);
@@ -58,10 +54,10 @@ public class AdminDashboard extends JFrame
     quitButton.setFont(BOLD_FONT);
     quitButton.setBounds(510, 750, 140, 45);
 
-    // Quit button functionality
+    // Quit button 
     quitButton.addActionListener(e -> System.exit(0));
 
-    // logout button functionality
+    // logout button 
     logoutButton.addActionListener(e -> {
         new HomePage().setVisible(true);
         dispose(); // Close the current window
@@ -76,7 +72,7 @@ public class AdminDashboard extends JFrame
     }
 
 
-    // Panel for "New User"
+    // Panel  "New User"
     private JPanel NewUser() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -161,7 +157,7 @@ public class AdminDashboard extends JFrame
         createButton.setBounds(400, 410, 140, 45);
         panel.add(createButton);
 
-        // Add a table to display users
+        // table to display users
         String[] columns = {"User ID", "First Name", "Last Name", "Email", "Role"};
         Object[][] data = {
                 {"DV001", "Talha", "Khan", "itsTalha@gmail.com", "Admin"},
@@ -177,7 +173,7 @@ public class AdminDashboard extends JFrame
         return panel;
     }
 
-   // Panel for "Create Schedule"
+   //   "Create Schedule"
    private JPanel createSchedulePanel() {
     JPanel panel = new JPanel();
     panel.setLayout(null);
@@ -252,7 +248,7 @@ public class AdminDashboard extends JFrame
     createButton.setBounds(360, 380, 140, 45);
     panel.add(createButton);
 
-    // Create a table to display existing schedules
+    // table to display existing schedules
     String[] columns = {"Transport ID", "Schedule ID", "Transport Type", "Departure Time", "Arrival Time", "Route"};
     Object[][] data = {
         {"TN001", "TB001", "Train", "07:00", "08:00", "Jalan Ampang"},
@@ -266,7 +262,7 @@ public class AdminDashboard extends JFrame
     scrollPane.setBounds(30, 450, 610, 200);
     panel.add(scrollPane);
 
-    // Add action listener to the create button
+    // create button
     createButton.addActionListener(e -> {
         String transportID = JOptionPane.showInputDialog("Enter Transport ID:");
         String scheduleID = JOptionPane.showInputDialog("Enter Schedule ID:");
@@ -274,7 +270,6 @@ public class AdminDashboard extends JFrame
         String departureTime = JOptionPane.showInputDialog("Enter Departure Time:");
         String arrivalTime = JOptionPane.showInputDialog("Enter Arrival Time:");
         String route = JOptionPane.showInputDialog("Enter Route:");
-        // Add the new schedule to the table model
         scheduleTableModel.addRow(new Object[]{transportID, scheduleID, transportType, departureTime, arrivalTime, route});
         JOptionPane.showMessageDialog(panel, "Schedule created successfully!");
     });
@@ -283,7 +278,7 @@ public class AdminDashboard extends JFrame
     return panel;
 }
 
-   // Panel for "Update Schedule"
+   // Panel "Update Schedule"
 private JPanel updateSchedulePanel() {
     JPanel panel = new JPanel();
     panel.setLayout(null);
@@ -292,7 +287,7 @@ private JPanel updateSchedulePanel() {
     titleLabel.setFont(BOLD_FONT);
     titleLabel.setBounds(250, 20, 200, 30);
     panel.add(titleLabel);
-
+// it was extra code so i commented it~Talha
    /*  JLabel scheduleIDLabel = new JLabel("Schedule ID:");
     scheduleIDLabel.setFont(STANDARD_FONT);
     scheduleIDLabel.setBounds(100, 80, 200, 30);
@@ -333,6 +328,7 @@ private JPanel updateSchedulePanel() {
     titleLabel2.setBounds(250, 300, 200, 30);
     panel.add(titleLabel2);
 
+    // it was extra code so i commented it~Talha
    /* JLabel scheduleIDLabel2 = new JLabel("Schedule ID:");
     scheduleIDLabel2.setFont(STANDARD_FONT);
     scheduleIDLabel2.setBounds(100, 350, 140, 30);
@@ -348,7 +344,7 @@ private JPanel updateSchedulePanel() {
     deleteButton.setBounds(390, 380, 140, 45);
     panel.add(deleteButton);
 
-    // Create a table to display existing schedules
+    // table to display existing schedules
     String[] columns = {"Schedule ID", "Transport ID", "Departure Time", "Arrival Time"};
     Object[][] data = {
         {"TN001", "TB001", "Train", "07:00", "08:00"},
@@ -362,16 +358,16 @@ private JPanel updateSchedulePanel() {
     scrollPane.setBounds(30, 450, 610, 200);
     panel.add(scrollPane);
 
-    // Add action listener to the update button
+    // update button
     updateButton.addActionListener(e -> {
         String scheduleID = JOptionPane.showInputDialog("Enter Schedule ID to update:");
         String newDepartureTime = JOptionPane.showInputDialog("Enter new Departure Time:");
         String newArrivalTime = JOptionPane.showInputDialog("Enter new Arrival Time:");
-        // Update the schedule in the table with the new departure and arrival times
+        // will Update the schedule in the table with the new departure and arrival times
         for (int i = 0; i < scheduleTableModel.getRowCount(); i++) {
             if (scheduleTableModel.getValueAt(i, 0).equals(scheduleID)) {
-                scheduleTableModel.setValueAt(newDepartureTime, i, 2); // Assuming column 2 is Departure Time
-                scheduleTableModel.setValueAt(newArrivalTime, i, 3); // Assuming column 3 is Arrival Time
+                scheduleTableModel.setValueAt(newDepartureTime, i, 2);
+                scheduleTableModel.setValueAt(newArrivalTime, i, 3); 
                 break;
             }
         }
@@ -379,7 +375,7 @@ private JPanel updateSchedulePanel() {
     });
     panel.add(updateButton, BorderLayout.SOUTH);
 
-    // Add action listener to the delete button
+    // delete button
     deleteButton.addActionListener(e -> {
         String scheduleID = JOptionPane.showInputDialog("Enter Schedule ID to delete:");
         if (scheduleID == null) return; // If the user cancels the input dialog
@@ -387,10 +383,9 @@ private JPanel updateSchedulePanel() {
             JOptionPane.showMessageDialog(panel, "Please enter a Schedule ID to delete!");
             return;
         }
-        // if scheduleID not found
-        
 
-        // Remove the schedule from the table
+        // if scheduleID not found~Talha
+
         boolean found = false;
         for (int i = 0; i < scheduleTableModel.getRowCount(); i++) {
             if (scheduleTableModel.getValueAt(i, 0).equals(scheduleID)) {
@@ -412,7 +407,7 @@ private JPanel updateSchedulePanel() {
     return panel;
 }
 
-    // Panel for "Assign Transport"
+    // Panel  "Assign Transport"
     private JPanel assignTransportPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -458,7 +453,7 @@ private JPanel updateSchedulePanel() {
         panel.add(assignButton);
 
 
-        //Create a table to display existing schedules 
+        // table to display existing schedules 
         String[] columns = {"Schedule ID","Transport ID", "Driver ID", "Driver Name"};
         Object[][] data = {
             {"TN001", "TB001", "DV001", "Khan"},
