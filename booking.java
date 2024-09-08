@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-
+//~ Talha
 
 public class booking extends JFrame
 {
@@ -118,13 +118,13 @@ public class booking extends JFrame
     confirmJRadioButton.setBounds(450, 340, 200, 30 );
     panel1.add(confirmJRadioButton);
 
-    //panel2 for reciept display 
+    //panel2 for reciept display ~ Talha
     JPanel panel2 = new JPanel();
     panel2.setBounds(620, 110, 350, 530);
     panel2.setLayout(new BorderLayout());
 
 
-    // TextArea for displaying the receipt
+    // TextArea for displaying the receipt ~ Talha
     JTextArea receiptTextArea = new JTextArea();
     receiptTextArea.setEditable(false); 
     receiptTextArea.setLineWrap(true); 
@@ -132,7 +132,7 @@ public class booking extends JFrame
 
     receiptTextArea.setFont(BOLD_FONT);
 
-    // Receipt text
+    // Receipt text ~ Talha
     String receiptText = "**************************************\n"
     + "*            RECEIPT                 *\n"
     + "**************************************\n\n"

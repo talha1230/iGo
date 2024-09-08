@@ -5,16 +5,16 @@ import java.util.List;
 import javax.swing.border.BevelBorder;
 
 
-
+ //~ Talha
 public class HomePage extends JFrame {
     private List<User> users;
 
     public HomePage() {
-        // Initialize the list of users
+        // list of users
         users = new ArrayList<>();
-        users.add(new User("admin", "admin", true)); // Admin user
-        users.add(new User("user1", "password1", false)); // Regular user
-        users.add(new User("user2", "password2", false)); // Regular user
+        users.add(new User("admin", "admin", true)); 
+        users.add(new User("user1", "password1", false)); 
+        users.add(new User("user2", "password2", false)); 
 
         setTitle("Home");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,9 +24,9 @@ public class HomePage extends JFrame {
         setLocationRelativeTo(null);
 
         // Add a background image
-        ImageIcon originalIcon = new ImageIcon("/Users/majid/Desktop/OOP /FinalProjectGP/ProjectUI/ProjectOOP/src/bg.png");
+        ImageIcon originalIcon = new ImageIcon("https://github.com/talha1230/iGo/blob/main/bg.png");
 
-        // Scale the image to fit the frame size
+        // Scaling the image
         Image scaledImage = originalIcon.getImage().getScaledInstance(1000, 850, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         JLabel backgroundLabel = new JLabel(scaledIcon);

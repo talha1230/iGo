@@ -11,15 +11,13 @@ public class AdminMethods {
     private static final Font STANDARD_FONT = new Font("Aharoni", Font.PLAIN, 15);
     private static final Font BOLD_FONT = new Font("Aharoni", Font.BOLD, 15);
 
-    // Data storage for users and schedules
+    //  Storing data using arrar ~ Majid
     private ArrayList<Object[]> users = new ArrayList<>();
     private ArrayList<Object[]> schedules = new ArrayList<>();
 
-    // Constructor to initialize data
     public AdminMethods() {
-        // Initialize schedules and add schedule data
         schedules = new ArrayList<>();
-        // Example schedule data added in constructor for demonstration
+        //populting the schedules arraylist with data ~ Majid
         schedules.add(new Object[]{"TN001", "TB001", "Train", "08:00", "09:00", "Line 1"});
         schedules.add(new Object[]{"BS001", "TB001", "Bus", "08:00", "09:00", "Route 1"});
         schedules.add(new Object[]{"TN002", "TB002", "Train", "09:00", "10:00", "Line 2"});
@@ -50,7 +48,7 @@ public class AdminMethods {
         return busSchedules;
     }
 
-    // Method to create the panel for "Manage User"
+    // Manage User Panel ~ Majid
     public JPanel manageUser() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -135,7 +133,7 @@ public class AdminMethods {
         createButton.setBounds(400, 410, 140, 45);
         panel.add(createButton);
 
-        // Add a table to display users using DefaultTableModel
+        //  table to display users ~ Majid
         String[] columns = {"User ID", "First Name", "Last Name", "Email", "Role"};
         DefaultTableModel userModel = new DefaultTableModel(columns, 0);
         JTable table = new JTable(userModel);
@@ -143,13 +141,13 @@ public class AdminMethods {
         scrollPane.setBounds(30, 470, 610, 200);
         panel.add(scrollPane);
 
-        // Initialize the table with existing data
+        
         for (Object[] user : users) {
             userModel.addRow(user);
         }
 
 
-        // Add action listener to create button to add new user to the list and refresh table 
+        // button to add new user ~ Majid
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -161,14 +159,12 @@ public class AdminMethods {
                 String password = new String(passwordField.getPassword());
                 String userId = UserIdField.getText();
 
-                // Add new user to the list
                 users.add(new Object[]{userId, firstName, lastName, email, role});
 
-                // Refresh table
+                // Refresh table ~ Majid
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 model.addRow(new Object[]{userId, firstName, lastName, email, role});
 
-                // Clear input fields
                 f_nameField.setText("");
                 l_nameField.setText("");
                 DOBField.setText("");
@@ -181,7 +177,7 @@ public class AdminMethods {
         return panel;
     }
 
-    // Method to create the panel for "Create Schedule"
+    // Create Schedule Panel ~ Majid
     public JPanel createSchedulePanel() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -236,7 +232,7 @@ public class AdminMethods {
         createButton.setBounds(360, 260, 140, 45);
         panel.add(createButton);
 
-        // Add a table to display schedules using DefaultTableModel
+        // table to display schedules ~ Majid
         String[] columns = {"Transport ID", "Schedule ID", "Transport Type", "Departure Time", "Arrival Time", "Route"};
         DefaultTableModel scheduleModel = new DefaultTableModel(columns, 0);
         JTable table = new JTable(scheduleModel);
@@ -244,13 +240,12 @@ public class AdminMethods {
         scrollPane.setBounds(30, 320, 610, 200);
         panel.add(scrollPane);
 
-        // Initialize the table with existing data
         for (Object[] schedule : schedules) {
             scheduleModel.addRow(schedule);
         }
 
         
-        // Add action listener to create button to add new schedule to the list and refresh table
+        // button to add new schedule ~ Majid
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -259,19 +254,17 @@ public class AdminMethods {
                 String arrivalTime = arrivalField.getText();
                 String route = routeField.getText();
 
-                // Generate a schedule ID
+                // schedule ID ~ Majid
                 String transportID = transportType.equals("Bus") ? "BS" + (schedules.size() + 1) : "TN" + (schedules.size() + 1);
                 String scheduleID = "TB" + (schedules.size() + 1);
 
 
-                // Add new schedule to the list
                 schedules.add(new Object[]{transportID, scheduleID, transportType, departureTime, arrivalTime, route});
 
-                // Refresh table
+                // Refresh table ~ Majid
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 model.addRow(new Object[]{transportID, scheduleID, transportType, departureTime, arrivalTime, route});
 
-                // Clear input fields
                 departureField.setText("");
                 arrivalField.setText("");
                 routeField.setText("");
@@ -281,7 +274,7 @@ public class AdminMethods {
         return panel;
     }
 
-    // Method to create the panel for "Update Schedule"
+    // Update Schedule Panel ~ Majid    
     public JPanel updateSchedulePanel() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -326,15 +319,15 @@ public class AdminMethods {
         updateButton.setBounds(390, 210, 140, 45);
         panel.add(updateButton);
 
-        // Add a table to display schedules using DefaultTableModel
+        // table to display schedules ~ Majid
         String[] columns = {"Transport ID", "Schedule ID", "Transport Type", "Departure Time", "Arrival Time", "Route"};
-        DefaultTableModel scheduleModel = new DefaultTableModel(columns, 0);  // No initial rows
+        DefaultTableModel scheduleModel = new DefaultTableModel(columns, 0);  
         JTable table = new JTable(scheduleModel);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(30, 270, 610, 200);
         panel.add(scrollPane);
 
-        // Initialize the table with existing data from schedules list
+        // populating the table with data ~ Majid
         for (Object[] schedule : schedules) {
             scheduleModel.addRow(schedule);
         }
@@ -354,7 +347,7 @@ public class AdminMethods {
         deleteButton.setBounds(390, 510, 140, 45);
         panel.add(deleteButton);
         
-        // Add action listener to update button to update the schedule and refresh table
+        // update button to update the schedule ~ Majid
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -362,7 +355,7 @@ public class AdminMethods {
                 String newDeparture = newDepartureField.getText();
                 String newArrival = newArrivalField.getText();
 
-                // Find the schedule and update it
+                // update the schedule ~ Majid 
                 for (Object[] schedule : schedules) {
                     if (schedule[1].equals(scheduleID)) {
                         schedule[3] = newDeparture;
@@ -371,29 +364,28 @@ public class AdminMethods {
                     }
                 }
 
-                // Refresh table
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.setRowCount(0);  // Clear table
+                model.setRowCount(0);  
                 for (Object[] schedule : schedules) {
-                    model.addRow(schedule);  // Add updated schedule data
+                    model.addRow(schedule);  
                 }
             }
         });
 
-        // Add action listener to delete button to remove the schedule and refresh table
+        // delete button to remove the schedul ~ Majid
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String scheduleID = (String) scheduleIDCombo2.getSelectedItem();
 
-                // Find and remove the schedule
+                // Find and remove the schedule ~ Majid
                 schedules.removeIf(schedule -> schedule[1].equals(scheduleID));
 
-                // Refresh table
+                // Refresh table ~ Majid
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.setRowCount(0);  // Clear table
+                model.setRowCount(0);  
                 for (Object[] schedule : schedules){
-                    model.addRow(schedule);  // Add updated schedule data
+                    model.addRow(schedule);  
                 }   
             }
         });
@@ -401,7 +393,7 @@ public class AdminMethods {
         return panel;
     }
 
-    // Method to create the panel for "Assign Transport"
+    // Assign Transport Panel ~ Majid
     public JPanel assignTransportPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -446,7 +438,7 @@ public class AdminMethods {
         assignButton.setBounds(350, 235, 140, 45);
         panel.add(assignButton);
 
-        // Add a table to display assignments using DefaultTableModel
+        // table to display assignments ~ Majid
         String[] columns = {"Schedule ID", "Transport ID", "Driver ID", "Driver Name"};
         DefaultTableModel assignModel = new DefaultTableModel(columns, 0);  // No initial rows
         JTable table = new JTable(assignModel);
@@ -454,13 +446,12 @@ public class AdminMethods {
         scrollPane.setBounds(30, 290, 610, 200);
         panel.add(scrollPane);
 
-        // Initialize the table with existing data dynamically
-        for (Object[] assignment : schedules) {  // Replace schedules with actual assignments list
+        // populating the table with data ~ Majid
+        for (Object[] assignment : schedules) {  
             assignModel.addRow(assignment);
         }
 
-        // Add action listener to assign button to add new assignment to the list and refresh table
-        // Lookup driver name from the 'users' list
+        // assign button to add new assignment ~ Majid
         assignButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -469,15 +460,15 @@ public class AdminMethods {
                 String driverID = (String) driverIdCombo.getSelectedItem();
                 String driverName = "";
 
-                // Find the driver name dynamically from the users list
+                // to get the driver name from the user list ~ Majid
                 for (Object[] user : users) {
                     if (user[0].equals(driverID)) {
-                        driverName = (String) user[1];  // Assuming first name is at index 1
+                        driverName = (String) user[1]; 
                         break;
                     }
                 }
 
-                // Add assignment to table (this could be stored similarly as schedules/users)
+                // assign to table (this could be stored similarly as schedules/users) ~ Majid
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 model.addRow(new Object[]{scheduleID, transportID, driverID, driverName});
 
