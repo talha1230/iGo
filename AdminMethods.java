@@ -179,73 +179,123 @@ public class AdminMethods {
 
     // Create Schedule Panel ~ Majid
     public JPanel createSchedulePanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Add padding between components
+    
+        // Create a panel for the input fields
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridBagLayout());
+        GridBagConstraints inputGbc = new GridBagConstraints();
+        inputGbc.insets = new Insets(5, 5, 5, 5); // Add padding between components
+        inputGbc.anchor = GridBagConstraints.WEST;
+    
+        // Title label
         JLabel titleLabel = new JLabel("Create New Schedule");
         titleLabel.setFont(BOLD_FONT);
-        titleLabel.setBounds(250, 20, 200, 30);
-        panel.add(titleLabel);
-
+        inputGbc.gridx = 0;
+        inputGbc.gridy = 0;
+        inputGbc.gridwidth = 2;
+        inputPanel.add(titleLabel, inputGbc);
+    
+        // Transport Type
         JLabel transportTypeLabel = new JLabel("Transport Type:");
         transportTypeLabel.setFont(STANDARD_FONT);
-        transportTypeLabel.setBounds(100, 80, 150, 30);
-        panel.add(transportTypeLabel);
-
+        inputGbc.gridy = 1;
+        inputGbc.gridwidth = 1;
+        inputPanel.add(transportTypeLabel, inputGbc);
+    
         JComboBox<String> transportTypeCombo = new JComboBox<>(new String[]{"Bus", "Train"});
         transportTypeCombo.setFont(STANDARD_FONT);
-        transportTypeCombo.setBounds(250, 80, 250, 30);
-        panel.add(transportTypeCombo);
-
+        inputGbc.gridx = 1;
+        inputGbc.fill = GridBagConstraints.HORIZONTAL; // Make the combo box expand horizontally
+        inputPanel.add(transportTypeCombo, inputGbc);
+    
+        // Departure Time
         JLabel departureLabel = new JLabel("Departure Time:");
         departureLabel.setFont(STANDARD_FONT);
-        departureLabel.setBounds(100, 130, 150, 30);
-        panel.add(departureLabel);
-
+        inputGbc.gridx = 0;
+        inputGbc.gridy = 2;
+        inputGbc.fill = GridBagConstraints.NONE; // Reset fill
+        inputPanel.add(departureLabel, inputGbc);
+    
         JTextField departureField = new JTextField();
         departureField.setFont(STANDARD_FONT);
-        departureField.setBounds(250, 130, 250, 30);
-        panel.add(departureField);
-
+        departureField.setPreferredSize(new Dimension(200, departureField.getPreferredSize().height)); // Set preferred width
+        inputGbc.gridx = 1;
+        inputGbc.fill = GridBagConstraints.HORIZONTAL; // Make the text field expand horizontally
+        inputPanel.add(departureField, inputGbc);
+    
+        // Arrival Time
         JLabel arrivalLabel = new JLabel("Arrival Time:");
         arrivalLabel.setFont(STANDARD_FONT);
-        arrivalLabel.setBounds(100, 180, 150, 30);
-        panel.add(arrivalLabel);
-
+        inputGbc.gridx = 0;
+        inputGbc.gridy = 3;
+        inputPanel.add(arrivalLabel, inputGbc);
+    
         JTextField arrivalField = new JTextField();
         arrivalField.setFont(STANDARD_FONT);
-        arrivalField.setBounds(250, 180, 250, 30);
-        panel.add(arrivalField);
-
+        arrivalField.setPreferredSize(new Dimension(200, arrivalField.getPreferredSize().height)); // Set preferred width
+        inputGbc.gridx = 1;
+        inputPanel.add(arrivalField, inputGbc);
+    
+        // Route
         JLabel routeLabel = new JLabel("Route:");
         routeLabel.setFont(STANDARD_FONT);
-        routeLabel.setBounds(100, 230, 150, 30);
-        panel.add(routeLabel);
-
+        inputGbc.gridx = 0;
+        inputGbc.gridy = 4;
+        inputPanel.add(routeLabel, inputGbc);
+    
         JTextField routeField = new JTextField();
         routeField.setFont(STANDARD_FONT);
-        routeField.setBounds(250, 230, 250, 30);
-        panel.add(routeField);
-
+        routeField.setPreferredSize(new Dimension(200, routeField.getPreferredSize().height)); // Set preferred width
+        inputGbc.gridx = 1;
+        inputPanel.add(routeField, inputGbc);
+    
+        // Create button
         JButton createButton = new JButton("Create");
         createButton.setFont(BOLD_FONT);
-        createButton.setBounds(360, 260, 140, 45);
-        panel.add(createButton);
-
-        // table to display schedules ~ Majid
+        inputGbc.gridx = 1;
+        inputGbc.gridy = 5;
+        inputGbc.fill = GridBagConstraints.NONE; // Reset fill
+        inputPanel.add(createButton, inputGbc);
+    
+        // Create the table panel
+        JPanel tablePanel = new JPanel(new GridBagLayout());
+        GridBagConstraints tableGbc = new GridBagConstraints();
+        tableGbc.insets = new Insets(5, 5, 5, 5);
+        tableGbc.fill = GridBagConstraints.BOTH;
+    
+        // Table to display schedules
         String[] columns = {"Transport ID", "Schedule ID", "Transport Type", "Departure Time", "Arrival Time", "Route"};
         DefaultTableModel scheduleModel = new DefaultTableModel(columns, 0);
         JTable table = new JTable(scheduleModel);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(30, 320, 610, 200);
-        panel.add(scrollPane);
-
+    
+        tableGbc.gridx = 0;
+        tableGbc.gridy = 0;
+        tableGbc.weightx = 1.0;
+        tableGbc.weighty = 1.0;
+        tableGbc.gridwidth = GridBagConstraints.REMAINDER;
+        tablePanel.add(scrollPane, tableGbc);
+    
+        // Add the panels to the main panel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0.5;
+        gbc.weighty = 1.0;
+        panel.add(inputPanel, gbc);
+    
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        panel.add(tablePanel, gbc);
+    
+        // Populate the table with initial schedule data
         for (Object[] schedule : schedules) {
             scheduleModel.addRow(schedule);
         }
-
-        
-        // button to add new schedule ~ Majid
+    
+        // Add action listener to create button
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -253,26 +303,28 @@ public class AdminMethods {
                 String departureTime = departureField.getText();
                 String arrivalTime = arrivalField.getText();
                 String route = routeField.getText();
-
-                // schedule ID ~ Majid
+    
+                // Generate schedule ID
                 String transportID = transportType.equals("Bus") ? "BS" + (schedules.size() + 1) : "TN" + (schedules.size() + 1);
                 String scheduleID = "TB" + (schedules.size() + 1);
-
-
+    
                 schedules.add(new Object[]{transportID, scheduleID, transportType, departureTime, arrivalTime, route});
-
-                // Refresh table ~ Majid
+    
+                // Refresh table
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 model.addRow(new Object[]{transportID, scheduleID, transportType, departureTime, arrivalTime, route});
-
+    
+                // Clear fields
                 departureField.setText("");
                 arrivalField.setText("");
                 routeField.setText("");
             }
         });
-
+    
         return panel;
     }
+    
+    
 
     // Update Schedule Panel ~ Majid    
     public JPanel updateSchedulePanel() {
@@ -400,7 +452,7 @@ public class AdminMethods {
 
         JLabel titleLabel = new JLabel("Assign Transport to Schedule");
         titleLabel.setFont(BOLD_FONT);
-        titleLabel.setBounds(200, 20, 250, 30);
+        titleLabel.setBounds(400, 20, 250, 30);
         panel.add(titleLabel);
 
         JLabel scheduleIDLabel = new JLabel("Schedule ID:");
