@@ -3,7 +3,11 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AdminMethods {
 
@@ -87,17 +91,16 @@ public class AdminMethods {
         l_nameField.setFont(STANDARD_FONT);
         l_nameField.setBounds(300, 180, 250, 30);
         panel.add(l_nameField);
-
+    
         JLabel DOBLabel = new JLabel("D.O.B. (dd-MM-yyyy):");
         DOBLabel.setFont(STANDARD_FONT);
         DOBLabel.setBounds(100, 230, 150, 30);
         panel.add(DOBLabel);
 
         JTextField DOBField = new JTextField();
-        DOBField.setFont(STANDARD_FONT);
-        DOBField.setBounds(300, 230, 250, 30);
+        DOBField.setBounds(260, 230, 250, 30); // Adjusted width to match other fields
         panel.add(DOBField);
-
+        
         JLabel emailLabel = new JLabel("Email:");
         emailLabel.setFont(STANDARD_FONT);
         emailLabel.setBounds(100, 280, 150, 30);
@@ -154,10 +157,20 @@ public class AdminMethods {
                 String role = (String) transportTypeCombo.getSelectedItem();
                 String firstName = f_nameField.getText();
                 String lastName = l_nameField.getText();
-                String dob = DOBField.getText();
                 String email = emailField.getText();
                 String password = new String(passwordField.getPassword());
                 String userId = UserIdField.getText();
+                String dob = DOBField.getText();
+
+                if (!isValidDate(dob)) {
+                    JOptionPane.showMessageDialog(panel, "Invalid date format. Please use dd-MM-yyyy.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (!isValidEmail(email)) {
+                    JOptionPane.showMessageDialog(panel, "Invalid email format. Please use a valid email format.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
                 users.add(new Object[]{userId, firstName, lastName, email, role});
 
@@ -171,12 +184,37 @@ public class AdminMethods {
                 emailField.setText("");
                 passwordField.setText("");
                 UserIdField.setText("");
+
+                JOptionPane.showMessageDialog(panel, "User created successfully!");
             }
         });
 
         return panel;
     }
 
+    private boolean isValidDate(String date) {
+        String datePattern = "\\d{2}-\\d{2}-\\d{4}";
+        Pattern pattern = Pattern.compile(datePattern);
+        Matcher matcher = pattern.matcher(date);
+        if (!matcher.matches()) {
+            return false;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(date);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+    private boolean isValidEmail(String email) {
+        String emailPattern = "^[\\w-\\.]+@[a-zA-Z]{3,}\\.com$";
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
     // Create Schedule Panel ~ Majid
     public JPanel createSchedulePanel() {
         JPanel panel = new JPanel();
@@ -440,7 +478,7 @@ public class AdminMethods {
 
         // table to display assignments ~ Majid
         String[] columns = {"Schedule ID", "Transport ID", "Driver ID", "Driver Name"};
-        DefaultTableModel assignModel = new DefaultTableModel(columns, 0);  // No initial rows
+        DefaultTableModel assignModel = new DefaultTableModel(columns, 0);  
         JTable table = new JTable(assignModel);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(30, 290, 610, 200);

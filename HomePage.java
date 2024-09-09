@@ -24,7 +24,7 @@ public class HomePage extends JFrame {
         setLocationRelativeTo(null);
 
         // Add a background image
-        ImageIcon originalIcon = new ImageIcon("https://github.com/talha1230/iGo/blob/main/bg.png");
+        ImageIcon originalIcon = new ImageIcon("./bg.png");
 
         // Scaling the image
         Image scaledImage = originalIcon.getImage().getScaledInstance(1000, 850, Image.SCALE_SMOOTH);
