@@ -55,6 +55,12 @@ public class AdminDashboard extends JFrame {
 
         quitButton.addActionListener(e -> System.exit(0));
 
+        logoutButton.addActionListener(e -> {
+            HomePage homePage = new HomePage();
+            homePage.setVisible(true);
+            dispose();
+        });
+
         add(panel0);
         add(quitButton);
         add(logoutButton);
