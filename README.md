@@ -107,14 +107,21 @@ The goal is to create a comprehensive, secure, and scalable system tailored to p
 
 	To enhance the visual appeal of the UI, we have included some screenshots and images of the iGo application. Take a look at the following images:
 
-	![Screenshot 1](/path/to/screenshot1.png)
-	*Caption: The homepage of the iGo application.*
+	### Loading Page
+![Loading Page](screenshot/loadingPage.png)
+*Caption: The loading page of the iGo application.*
 
-	![Screenshot 2](/path/to/screenshot2.png)
-	*Caption: Admin dashboard for managing schedules.*
+### Home Page
+![Home Page](/screenshot/HomePage.png)
+*Caption: The homepage of the iGo application.*
 
-	![Screenshot 3](/path/to/screenshot3.png)
-	*Caption: User booking interface.*
+### Admin Dashboard
+![Admin Dashboard](/screenshot/AdminDashboard.png)
+*Caption: Admin dashboard for managing schedules.*
+
+### Booking Page
+![Booking Page](/screenshot/BookingPage.png)
+*Caption: User booking interface.*
 
 	Feel free to explore the application and see how it looks in action!
 
