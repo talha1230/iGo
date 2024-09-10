@@ -13,8 +13,9 @@ The goal is to create a comprehensive, secure, and scalable system tailored to p
 ### Directory Overview
 	src/
 	├── HomePage.java          # Main entry point for the application
-	├── AdminDashboard.java    # Admin interface for managing schedules
-	├── booking.java           # Handles booking operations for users
+	├── AdminDashboard.java    # Admin interface for managing 	
+	├── AdminMethods.java      # Admin interface for managing 
+	├── booking.java           # Handles booking operations for usersschedules
 	├── loading.java           # Displays a loading screen during startup
 	├── App.java               # Main application class
 	├── bg.png                 # Background image used in the UI
@@ -102,6 +103,21 @@ The goal is to create a comprehensive, secure, and scalable system tailored to p
 		* Use your IDE’s build tools to compile the code.
   		* Run App.java as the main class to launch the UI.
      
+	## 6. Images 📷
+
+	To enhance the visual appeal of the UI, we have included some screenshots and images of the iGo application. Take a look at the following images:
+
+	![Screenshot 1](/path/to/screenshot1.png)
+	*Caption: The homepage of the iGo application.*
+
+	![Screenshot 2](/path/to/screenshot2.png)
+	*Caption: Admin dashboard for managing schedules.*
+
+	![Screenshot 3](/path/to/screenshot3.png)
+	*Caption: User booking interface.*
+
+	Feel free to explore the application and see how it looks in action!
+
 7. Contribution Guidelines 👥
 
 We welcome contributions! Whether you’re fixing bugs or implementing new features, your input is valuable.
